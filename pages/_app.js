@@ -1,0 +1,102 @@
+import "../styles/globals.css";
+import toast, {Toaster} from "react-hot-toast";
+import merge from "lodash/merge";
+import "@rainbow-me/rainbowkit/styles.css";
+
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+  darkTheme,
+  midnightTheme,
+} from "@rainbow-me/rainbowkit";
+import {chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc"; 
+
+//NETWORK SETUP
+const SEPOLIA = process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL;
+const EXPLORER = process.env.NEXT_PUBLIC_ADDRESS_EXPLORER;
+const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
+const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY;
+const DECIMALS = process.env.NEXT_PUBLIC_NETWORK_DECIMALS;
+const NAME = process.env.NEXT_PUBLIC_NETWORK_NAME;
+const NETWORK = process.env.NEXT_PUBLIC_NETWORK;
+
+
+export default function App({ Component, pageProps }) {
+  //NETWORK
+  const {chains, provider} = configureChains([
+      { 
+      id: Number(CHAIN_ID),
+      name: NAME,
+      network: NETWORK,
+      nativeCurrency: {
+        name: NAME,
+        symbol: CURRENCY,
+        decimals: Number(DECIMALS),
+      },
+      rpcUrls: {
+        default: {
+          http: [`${SEPOLIA}`],
+        },
+      },
+      public: {
+        http: [`${SEPOLIA}`],
+      },
+      blockExplorers: {
+        default: {
+          name: "Etherscan",
+          url: EXPLORER,
+        },
+      },
+      testnet: true,
+    },
+  ],
+  [
+    jsonRpcProvider({
+      rpc: (chain) => {
+        if(chain.id === Number(CHAIN_ID)){
+          return { http: `${SEPOLIA}`};
+        }
+        return null;
+      },
+      priority: 1,
+    }),
+  ],
+);
+
+const { connectors } = getDefaultWallets({
+  appName: "StakingDapp",
+  chains,
+});
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+});
+
+const myTheme = merge(midnightTheme(), {
+  colors: {
+    accentColor: "#562C7B",
+    accentColorForeground: "#fff",
+  }
+});
+  return (
+    <>
+    <WagmiConfig client = {wagmiClient}>
+      <RainbowKitProvider chains = {chains} theme={myTheme}>
+        <Component {...pageProps} />
+        <Toaster/>
+      </RainbowKitProvider>
+    </WagmiConfig>
+
+
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/smooth-scrollbar.js"></script>
+      <script src="js/splide.min.js"></script>
+      <script src="js/three.min.js"></script>
+      <script src="js/vanta.fog.min.js"></script>
+      <script src="js/main.js"></script>
+    </>
+  );
+}
