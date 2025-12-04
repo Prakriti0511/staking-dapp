@@ -321,6 +321,7 @@ export async function transferToken(amount, transferAddress) {
     const stakingTokenObj = await tokenContract();
     const decimals = Number(await stakingTokenObj.decimals().catch(() => 18));
     const transferAmount = ethers.utils.parseUnits(amount.toString(), decimals);
+
     const tx = await stakingTokenObj.transfer(transferAddress, transferAmount);
     await tx.wait();
     notifySuccess("Token transferred successfully");
@@ -421,6 +422,7 @@ export async function modifyPool(poolID, amount) {
   try {
     notifySuccess("Calling contract...");
     const contractObj = await contract();
+    const transferAmount = ethers.utils.parseEther(amount);
 
     const gasEstimation = await contractObj.estimateGas.modifyPool(Number(poolID), Number(amount));
 
@@ -571,6 +573,7 @@ export const TOKEN_WITHDRAW = async () => {
 export const UPDATE_TOKEN = async (_address) => {
   try {
     if (!_address) return notifyError("Data is missing");
+    notifySuccess("Calling ICO contract...");
     const ico = await TOKEN_ICO_CONTRACT();
     const gasEstimation = await ico.estimateGas.updateToken(_address);
     const tx = await ico.updateToken(_address, { gasLimit: gasEstimation });

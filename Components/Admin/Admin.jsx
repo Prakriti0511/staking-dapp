@@ -52,24 +52,21 @@ const Admin = ({
           </div>
           
           {/* Tab 2: Investing */}
-          <div className="tab-pane fade" id="tab-2" role="tabpanel">
             <Investing poolDetails={poolDetails}/>
-          </div>
-          
+
           {/* Tab 3: Staking */}
-          <div className="tab-pane fade" id="tab-3" role="tabpanel">
-            <Staking/>
-          </div>
+            <Staking
+            poolDetails={poolDetails}
+            sweep={sweep}
+            setLoader={setLoader}/>
           
           {/* Tab 4: Transfer */}
-          <div className="tab-pane fade" id="tab-4" role="tabpanel">
             <Transfer
               poolDetails={poolDetails}
               transferToken={transferToken}
               setLoader={setLoader}
               address={address}
             />
-          </div>
           
           {/* Tab 5: Pool */}
           <div className="tab-pane fade" id="tab-5" role="tabpanel">
@@ -82,9 +79,8 @@ const Admin = ({
           </div>
           
           {/* Tab 6: ICO Token */}
-          <div className="tab-pane fade" id="tab-6" role="tabpanel">
             <ICOToken setLoader={setLoader}/>
-          </div>
+          
         </div>
       </div>
       </div>
