@@ -954,6 +954,16 @@ body::-webkit-scrollbar-thumb {
   margin-top: 24px;
 }
 
+/* Remove default bootstrap underline for nav-tabs when using section__tabs */
+.nav.nav-tabs.section__tabs {
+  border-bottom: none !important;
+}
+
+.nav-tabs .nav-link {
+  border: none !important;
+  background: transparent !important;
+}
+
 .section__tabs li {
   margin-right: 25px;
 }
