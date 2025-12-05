@@ -2,6 +2,24 @@
 @import url("../public/css/splide.min.css");
 @import url("../public/css/main.css");
 
+/* Global site background + color variables */
+:root {
+  --site-bg: #16142a;
+  --site-bg-dim: rgba(22,20,42,0.95);
+  --site-text: #ffffff;
+}
+
+html, body, #__next {
+  height: 100%;
+  background-color: var(--site-bg) !important;
+  color: var(--site-text) !important;
+}
+
+/* Ensure default page background layers use the dark color */
+body > .container, .container, .section {
+  background: transparent;
+}
+
 /* //LOADER */
 .new-loader-wrapper {
   position: fixed;
