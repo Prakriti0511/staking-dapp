@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "hardhat.config.cjs"  ],
+, "blockchain/hardhat.config.cjs"  ],
   "exclude": [
     "node_modules"
   ]

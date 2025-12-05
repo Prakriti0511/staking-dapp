@@ -25,12 +25,10 @@
     "wagmi": "^0.6.4"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
     "@types/node": "^22.19.1",
     "@types/react": "18.3.27",
     "dotenv": "^17.2.3",
     "ethers": "^5.7.2",
-    "hardhat": "^2.22.10",
     "typescript": "~5.8.0"
   },
   "type": "module"
