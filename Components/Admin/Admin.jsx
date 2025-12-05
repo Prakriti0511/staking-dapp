@@ -21,7 +21,7 @@ const Admin = ({
   setModifyPoolID,
 }) => {
   return (
-  <div className="section">
+  <div className="section" style={{ backgroundColor: "#16142a" }}>
     <div className="container">
       <div className="row">
       <AdminNav/>
